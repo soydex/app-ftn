@@ -1,69 +1,114 @@
-# React + TypeScript + Vite
+# Fortnite Pseudo Checker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Un outil client-only pour vérifier la compatibilité des pseudos Fortnite avec les règles Unicode, la longueur et d'autres critères de validation.
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Cette application React permet de vérifier si un pseudo est compatible avec Fortnite. Elle analyse :
+- La longueur (3-16 caractères visibles)
+- Les caractères Unicode (support des émojis, accents, etc.)
+- Les caractères problématiques (contrôle, surrogats, etc.)
+- La normalisation NFC/NFKC
+- Les espaces et caractères spéciaux
 
-## Expanding the ESLint configuration
+L'outil fonctionne entièrement côté client, sans envoyer de données.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Fonctionnalités
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- ✅ Validation en temps réel du pseudo
+- ✅ Analyse caractère par caractère
+- ✅ Suggestions de correction pour les modes conservateurs
+- ✅ Historique des pseudos validés
+- ✅ Support Unicode complet (grappes de graphèmes)
+- ✅ Modes de validation : Ultra-sûr, Équilibré, Permissif
+- ✅ Interface responsive avec Tailwind CSS
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Technologies utilisées
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React 19** - Framework UI
+- **TypeScript** - Typage statique
+- **Vite** - Outil de build rapide
+- **Tailwind CSS** - Framework CSS
+- **Lucide React** - Icônes
+- **Intl.Segmenter** - Segmentation de graphèmes (si disponible)
+
+
+## Utilisation
+
+1. Ouvrir l'application dans le navigateur
+2. Saisir un pseudo dans le champ
+3. Sélectionner le mode de validation souhaité
+4. Consulter les diagnostics et suggestions
+5. Utiliser les boutons pour appliquer NFC/NFKC ou copier le pseudo
+
+### Modes de validation
+
+- **Ultra-sûr** : Lettres, chiffres, underscore uniquement
+- **Équilibré** : Caractères étendus sûrs (recommandé)
+- **Permissif** : Tolère plus de caractères, mais vérifie les problèmes
+
+
+### Structure du projet
+
+```
+src/
+├── App.tsx              # Composant principal
+├── main.tsx             # Point d'entrée
+├── index.css            # Styles globaux
+├── vite-env.d.ts        # Types Vite
+├── components/          # Composants réutilisables
+│   ├── GithubStars.tsx
+│   ├── Notifications.tsx
+│   └── Simplenotification.tsx
+├── hooks/               # Hooks personnalisés
+│   ├── useNotification.ts
+│   └── useSimpleNotification.ts
+└── assets/              # Ressources statiques
+    └── react.svg
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Validation des pseudos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Règles principales
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Longueur** : 3-16 caractères visibles (grappes de graphèmes)
+- **Unicode** : Support complet, mais vérification des caractères problématiques
+- **Normalisation** : NFC recommandée pour la compatibilité
+
+### Caractères acceptés (mode équilibré)
+
+- Lettres et chiffres Unicode
+- Marques diacritiques
+- Caractères ASCII étendus : ` _.-!@#$%^&*()+={}|\:;"'<>,?/~`-
+- Émojis courants
+- Symboles mathématiques et flèches basiques
+
+### Caractères rejetés
+
+- Caractères de contrôle/format
+- Surrogats UTF-16 isolés
+- Zones d'usage privé
+- Points de code non assignés
+- Non-caractères Unicode
+
+## Contribution
+
+Les contributions sont les bienvenues ! Veuillez :
+
+1. Forker le projet
+2. Créer une branche pour votre fonctionnalité
+3. Commiter vos changements
+4. Pousser vers la branche
+5. Ouvrir une Pull Request
+
+## Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## Auteur
+
+Créé par soydex (EN/FR)
+
+---
+
+*Client-only — Aucune donnée envoyée*
