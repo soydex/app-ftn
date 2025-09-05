@@ -4,7 +4,7 @@ const StarGithubbutton = () => {
   return (
     <button
       className="fixed top-4 right-4 z-50 flex h-10 items-center justify-center rounded-md dark:bg-gray-900/90 px-4 py-2 text-sm font-medium text-white shadow-lg backdrop-blur transition-transform duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 group border border-gray-700 dark:hover:bg-gray-800 hover:drop-shadow-lg drop-shadow-white"
-      onClick={() => window.open("https://github.com/soydex/ftn", "_blank")}
+      onClick={() => window.open("https://github.com/soydex/app-ftn", "_blank")}
     >
       <div className="flex items-center">
         <Github className="size-5 text-gray-900 dark:text-white transition-all duration-200 rounded" />
